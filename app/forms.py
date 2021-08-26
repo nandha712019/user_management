@@ -2,7 +2,7 @@ from django import forms
 from .models import UserModel
 
 
-class EmployeeForm(forms.ModelForm):
+class UserForm(forms.ModelForm):
     class Meta:
         model = UserModel
-        fields = "__all__"
+        fields = ["name",]

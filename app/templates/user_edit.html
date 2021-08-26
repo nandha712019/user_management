@@ -1,37 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Index</title>
-</head>
-<body>
-<form method="POST" class="post-form" action="user/">
+<form class="card-body" method="post">
         {% csrf_token %}
-    <div class="container">
-<br>
-    <div class="form-group row">
-    <label class="col-sm-1 col-form-label"></label>
-    <div class="col-sm-4">
-    <h3>Update Details</h3>
-    </div>
-  </div>
-    <div class="form-group row">
-    <label class="col-sm-2 col-form-label">Employee Id:</label>
-    <div class="col-sm-4">
-        <input type="text" name="eid" id="id_eid" required maxlength="20" value="{{ UserModel.name }}"/>
-    </div>
-  </div>
-  <div class="form-group row">
-    <label class="col-sm-2 col-form-label">Employee Name:</label>
-    <div class="col-sm-4">
-        <input type="text" name="ename" id="id_ename" required maxlength="100" value="{{ UserModel.salary }}" />
-    </div>
-  </div>
-
-    <button type="submit" class="btn btn-success">Update</button>
-    </div>
-  </div>
-    </div>
-</form>
-</body>
-</html>
+        <h5 class="card-title text-center py-3">Sign Up</h5>
+        <label class="float-start" for="id_username">Username </label>n
+        <input class="form-control" type="text" name="name" maxlength="40" autocapitalize="none" autocomplete="username" required id="id_username"><br>
+        <div class="row">
+          <div class="col">
+            <p class="text-secondary">Already a member then <a class="text-secondary" href="http://127.0.0.1:8000/accounts/login/">login</a></p>
+          </div>
+          <div class="col">
+            <button class="btn btn-primary" color="primary" type="submit">Sign Up</button>
+          </div>
+        </div>
+      </form>
