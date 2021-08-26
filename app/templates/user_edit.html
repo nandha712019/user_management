@@ -1,11 +1,10 @@
 <form class="card-body" method="post">
         {% csrf_token %}
-        <h5 class="card-title text-center py-3">Sign Up</h5>
-        <label class="float-start" for="id_username">Username </label>n
-        <input class="form-control" type="text" name="name" maxlength="40" autocapitalize="none" autocomplete="username" required id="id_username"><br>
+        <label class="float-start" for="id_address">Username </label>n
+        <input class="form-control" type="text" name="address" maxlength="40" autocapitalize="none" autocomplete="address" required id="id_address"><br>
         <div class="row">
           <div class="col">
-            <p class="text-secondary">Already a member then <a class="text-secondary" href="http://127.0.0.1:8000/accounts/login/">login</a></p>
+            <p class="text-secondary">Already a member then <a class="text-secondary" href="http://127.0.0.1:8000/user_view/">login</a></p>
           </div>
           <div class="col">
             <button class="btn btn-primary" color="primary" type="submit">Sign Up</button>
