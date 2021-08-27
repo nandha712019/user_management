@@ -27,7 +27,6 @@ def UserEdit(request):
     form.is_valid()
     if request.method == 'POST':
         try:
-            print('address' in form.changed_data)
             user = UserProfile.objects.get(username=user)
         except ObjectDoesNotExist:
             return HttpResponse("wrong user", status=400)
