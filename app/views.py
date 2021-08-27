@@ -1,29 +1,25 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate,login,logout
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
-from django.views.decorators.http import require_http_methods
-from .forms import UserForm
-from .models import UserProfile
-from django.template import loader, Context
-from django.template.loader import get_template
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.views.decorators.http import require_http_methods
+
+from .forms import UserForm, PasswordForm
+from .models import UserProfile
 
 
 @login_required
 @require_http_methods(["GET"])
-def user_view(request):
+def UserView(request):
     user=request.user
-    if request.method == 'GET':
+    if request.method == 'GET' and user.is_authenticated == True:
         queryset = UserProfile.objects.all().filter(username=user)
-        for a in queryset:
-            print(a.address)
         return render(request, 'user_view.html', {'data': queryset})
 
 
 @login_required
 @require_http_methods(["GET", "POST"])
-def user_edit(request):
+def UserEdit(request):
     user=request.user
     data = {}
     data['form'] = UserForm()
@@ -35,6 +31,9 @@ def user_edit(request):
         except ObjectDoesNotExist:
             return HttpResponse("wrong user", status=400)
         user.address = form.cleaned_data['address']
+        user.email = form.cleaned_data['email']
+        user.first_name = form.cleaned_data['first_name']
+        user.last_name = form.cleaned_data['last_name']
         user.salary = form.cleaned_data['salary']
         user.save()
         return HttpResponse("updated successfully", status=200)
@@ -44,13 +43,43 @@ def user_edit(request):
 
 
 @login_required
-def admin_view(request, id):
+@require_http_methods(["GET"])
+def UserList(request):
     user = request.user
     if user.is_superuser == True:
         if request.method == 'GET':
             queryset=UserProfile.objects.all()
-            return render(request, 'admin_view.html', {"data": queryset})
-        if request.method == 'DELETE':
-            queryset= UserProfile.objects.get(user=id)
+            return render(request, 'user_list.html', {"data": queryset})
+        else:
+            return HttpResponse("request method is wrong", status=400)
+    else:
+        return HttpResponse("Only admin user is allowed", status=400)
+
+
+@login_required
+@require_http_methods(["GET"])
+def UserDelete(request, id):
+    user= request.user
+    if request.method == 'GET':
+        if user.is_superuser == True:
+            queryset = UserProfile.objects.get(username=id)
             queryset.delete()
-            return HttpResponse("deleted successfully", status=200)
+            return HttpResponse("user deleted successfully", status=200)
+        else:
+            return HttpResponse("Only admin user is allowed", status=400)
+
+
+@login_required
+def password_reset(request):
+    data={}
+    data['form']=PasswordForm
+    if request.method == "POST":
+        form = PasswordForm(request.POST or None)
+        form.is_valid()
+        password=form.cleaned_data['password']
+        user = request.user
+        query = UserProfile.objects.get(username=user)
+        query.set_password(password)
+        query.save()
+        return HttpResponse("password updated successfully", status=200)
+    return render(request, "password_reset.html", data)
