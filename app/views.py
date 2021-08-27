@@ -38,7 +38,7 @@ def UserEdit(request):
             user.first_name = form.cleaned_data['first_name']
         if ('last_name' in form.changed_data) == True:
             user.last_name = form.cleaned_data['last_name']
-        if ('email' in form.changed_data) == True:
+        if ('salary' in form.changed_data) == True:
             user.salary = form.cleaned_data['salary']
         user.save()
         return HttpResponse("updated successfully", status=200)
