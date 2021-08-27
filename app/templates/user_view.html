@@ -1,8 +1,38 @@
-{% for media in data %}
+{% extends "user.html" %}
 
-{{ media.address }}
-{{ media.email }}
-{{ media.first_name }}
-{{ media.last_name }}
-{{ media.salary }}
-{% endfor %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card shadow border-0">
+        <div class="card-body" method="get">
+
+            <h4 class="card-title text-start py-3 text-uppercase"><strong>View Details</strong></h4>
+            <div class="row">
+                <div class="col text-start"><h5>Name </h5></div>
+                <div class="col text-start"><h5>{{ user.username }}</h5></div>
+            </div>
+            <div class="row">
+                <div class="col text-start"><h5>First Name </h5></div>
+                <div class="col text-start"><h5>{{ user.first_name }}</h5></div>
+            </div>
+            <div class="row">
+                <div class="col text-start"><h5>Last Name </h5></div>
+                <div class="col text-start"><h5>{{ user.last_name }}</h5></div>
+            </div>
+            <div class="row">
+                <div class="col text-start"><h5>Email </h5></div>
+                <div class="col text-start"><h5>{{ user.email }}</h5></div>
+            </div>
+            <div class="row">
+                <div class="col text-start"><h5>Salary </h5></div>
+                <div class="col text-start"><h5>{{ user.salary }}</h5></div>
+            </div>
+            <div class="row">
+                <div class="col text-start"><h5>Address </h5></div>
+                <div class="col text-start"><h5>{{ user.address }}</h5></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

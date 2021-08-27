@@ -1,8 +1,25 @@
-<form action="" method="post">
-        {% csrf_token %}
-     {{ form }}
-     <input type="submit" value=Submit">
-     <ul>
-          <li class="nav-item" title="Logout"><a class="nav-link" href="http://127.0.0.1:8000/accounts/logout/">logout<i class="fa fa-sign-out"></i></a></li>
-        </ul>
- </form>
+{% extends "user.html" %}
+
+{% block content %}
+
+      <div class="container">
+        <div class="card shadow border-0 mt-3">
+              <form class="card-body" action="" method="post">
+                {% csrf_token %}
+                <h5 class="card-title text-center text-uppercase"><strong> Edit Details</strong></h5>
+                <label class="float-start mt-3" for="id_firstname">First Name </label>
+                <input class="form-control" type="text" name="first_name" id="id_firstname">
+                <label class="float-start mt-3" for="id_lastname">Last Name </label>
+                <input class="form-control" type="text" name="last_name" id="id_lastname">
+                <label class="float-start mt-3" for="id_email">Email </label>
+                <input class="form-control" type="email" name="email" id="id_email">
+                <label class="float-start mt-3" for="id_salary">Salary </label>
+                <input class="form-control" type="number" name="salary" id="id_salary">
+                <label class="float-start mt-3" for="id_address">Address </label>
+                <input class="form-control" type="text" name="address" id="id_address">
+                <button class="btn btn-primary mt-4 text-uppercase" color="primary" type="submit" value="Submit"> Update </button>
+              </form>
+        </div>
+      </div>
+
+{% endblock content %}
