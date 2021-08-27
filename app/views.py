@@ -27,18 +27,19 @@ def UserEdit(request):
     form.is_valid()
     if request.method == 'POST':
         try:
+            print('address' in form.changed_data)
             user = UserProfile.objects.get(username=user)
         except ObjectDoesNotExist:
             return HttpResponse("wrong user", status=400)
-        if form.cleaned_data['address'] != "":
+        if ('address' in form.changed_data) == True:
             user.address = form.cleaned_data['address']
-        if form.cleaned_data['email'] != "":
+        if ('email' in form.changed_data) == True:
             user.email = form.cleaned_data['email']
-        if form.cleaned_data['first_name'] != "":
+        if ('first_name' in form.changed_data) == True:
             user.first_name = form.cleaned_data['first_name']
-        if form.cleaned_data['last_name'] != "":
+        if ('last_name' in form.changed_data) == True:
             user.last_name = form.cleaned_data['last_name']
-        if form.cleaned_data['salary'] != 0:
+        if ('email' in form.changed_data) == True:
             user.salary = form.cleaned_data['salary']
         user.save()
         return HttpResponse("updated successfully", status=200)
