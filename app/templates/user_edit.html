@@ -1,13 +1,8 @@
-<form class="card-body" method="post">
+<form action="" method="post">
         {% csrf_token %}
-        <label class="float-start" for="id_address">Username </label>n
-        <input class="form-control" type="text" name="address" maxlength="40" autocapitalize="none" autocomplete="address" required id="id_address"><br>
-        <div class="row">
-          <div class="col">
-            <p class="text-secondary">Already a member then <a class="text-secondary" href="http://127.0.0.1:8000/user_view/">login</a></p>
-          </div>
-          <div class="col">
-            <button class="btn btn-primary" color="primary" type="submit">Sign Up</button>
-          </div>
-        </div>
-      </form>
+     {{ form }}
+     <input type="submit" value=Submit">
+     <ul>
+          <li class="nav-item" title="Logout"><a class="nav-link" href="http://127.0.0.1:8000/accounts/logout/">logout<i class="fa fa-sign-out"></i></a></li>
+        </ul>
+ </form>
