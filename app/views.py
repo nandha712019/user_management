@@ -43,11 +43,6 @@ def user_edit(request):
     return render(request, "user_edit.html", data)
 
 
-def user_logout(request):
-    logout(request)
-    return HttpResponseRedirect('/accounts/login/')
-
-
 @login_required
 def admin_view(request, id):
     user = request.user
