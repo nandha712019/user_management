@@ -30,11 +30,16 @@ def UserEdit(request):
             user = UserProfile.objects.get(username=user)
         except ObjectDoesNotExist:
             return HttpResponse("wrong user", status=400)
-        user.address = form.cleaned_data['address']
-        user.email = form.cleaned_data['email']
-        user.first_name = form.cleaned_data['first_name']
-        user.last_name = form.cleaned_data['last_name']
-        user.salary = form.cleaned_data['salary']
+        if form.cleaned_data['address'] != "":
+            user.address = form.cleaned_data['address']
+        if form.cleaned_data['email'] != "":
+            user.email = form.cleaned_data['email']
+        if form.cleaned_data['first_name'] != "":
+            user.first_name = form.cleaned_data['first_name']
+        if form.cleaned_data['last_name'] != "":
+            user.last_name = form.cleaned_data['last_name']
+        if form.cleaned_data['salary'] != 0:
+            user.salary = form.cleaned_data['salary']
         user.save()
         return HttpResponse("updated successfully", status=200)
     else:
