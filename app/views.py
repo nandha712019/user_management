@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
@@ -53,7 +54,7 @@ def UserList(request):
     user = request.user
     if user.is_superuser == True:
         if request.method == 'GET':
-            queryset=UserProfile.objects.all()
+            queryset=UserProfile.objects.filter(Q(is_superuser=False))
             return render(request, 'user_list.html', {"data": queryset})
         else:
             return HttpResponse("request method is wrong", status=400)
