@@ -81,10 +81,19 @@ def password_reset(request):
     if request.method == "POST":
         form = PasswordForm(request.POST or None)
         form.is_valid()
-        password=form.cleaned_data['password']
-        user = request.user
-        query = UserProfile.objects.get(username=user)
-        query.set_password(password)
-        query.save()
-        return HttpResponse("password updated successfully", status=200)
+        try:
+            password = form.cleaned_data['new_password'].strip()
+            user = request.user
+            if (user.check_password(form.cleaned_data['old_password'].strip())) == True:
+                if password == form.cleaned_data['confirm_password'].strip():
+                    query = UserProfile.objects.get(username=user)
+                    query.set_password(password)
+                    query.save()
+                    return HttpResponse("password updated successfully", status=200)
+                else:
+                    return HttpResponse('password and confirm password should be same.', status=400)
+            else:
+                return HttpResponse("old password is wrong", status=400)
+        except KeyError:
+            return HttpResponse("Password should contain minimum 6 characters", status=400)
     return render(request, "password_reset.html", data)

@@ -27,11 +27,30 @@
             <td>{{ user.email }}</td>
             <td>{{ user.salary }}</td>
             <td>{{ user.address }}</td>
-            <td><a href="http://127.0.0.1:8000/user_delete/{{ user.username}}/"><button class="btn btn-danger" value="delete">Delete</button></a></td>
+            <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm_delete{{ user.username }}">Delete {{ user.username}}</button></td>
           </tr>
+          <div class="modal fade" id="confirm_delete{{ user.username }}" aria-labelledby="exampleModalLabel" aria-hidden="false">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Confirm Delete {{ user.username }}</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Are you sure to delete. </p>
+                  <p>Deleted user can't be undone. </p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <a href="http://127.0.0.1:8000/user_delete/{{ user.username}}/"><button type="button" class="btn btn-primary">Delete</button></a>
+                </div>
+              </div>
+            </div>
+          </div>
         </tbody>
         {% endfor %}
     </table>
+
   </div>
 
 {% endblock content %}

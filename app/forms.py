@@ -9,8 +9,6 @@ class UserForm(forms.ModelForm):
 
 
 class PasswordForm(forms.Form):
-    password=forms.CharField(min_length=6)
-
-#address, date_joined, email, first_name, groups, id, is_active,
-# is_staff, is_superuser, last_login, last_name, logentry,
-# password, salary, user_permissions, username
+    old_password = forms.CharField()
+    new_password = forms.CharField(min_length=6)
+    confirm_password = forms.CharField(min_length=6)
